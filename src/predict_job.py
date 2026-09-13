@@ -1,6 +1,37 @@
 import pandas as pd
 import joblib
 
+def get_percentage_input(message):
+    while True:
+        try:
+            value = float(input(message))
+
+            if 0 <= value <= 100:
+                return value
+
+            print("Please enter a value between 0 and 100.")
+
+        except ValueError:
+            print("Please enter a valid number.")
+
+def get_dependency_status():
+    while True:
+        status = input(
+            "Enter dependency status (Ready / Delayed / Not Ready): "
+        ).strip().lower()
+
+        if status == "ready":
+            return "Ready"
+
+        elif status == "delayed":
+            return "Delayed"
+
+        elif status == "not ready":
+            return "Not Ready"
+
+        else:
+            print("Please enter Ready, Delayed, or Not Ready.")
+
 # Load trained model
 model = joblib.load("models/gradient_boosting_model.pkl")
 
@@ -10,12 +41,12 @@ preprocessor = joblib.load("models/preprocessor.pkl")
 print("Model and preprocessor loaded successfully")
 
 # New SAP job data
-cpu_usage = float(input("Enter CPU usage (%): "))
-memory_usage = float(input("Enter memory usage (%): "))
+cpu_usage = get_percentage_input("Enter CPU usage (%): ")
+memory_usage = get_percentage_input("Enter memory usage (%): ")
 previous_failures = int(input("Enter previous failure count: "))
 start_delay = int(input("Enter start delay (minutes): "))
 
-dependency_status = input("Enter dependency status (Ready / Delayed / Not Ready): ")
+dependency_status = get_dependency_status()
 
 new_job = pd.DataFrame([{
     "job_id": "JOB001",
