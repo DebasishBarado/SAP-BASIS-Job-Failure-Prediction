@@ -91,7 +91,6 @@ print("\nPredicted Job Status:", prediction)
 # Get failure probability
 failure_probability = model.predict_proba(new_job_processed)[0][0]
 
-print("\nPredicted Job Status:", prediction)
 print("Failure Probability:", round(failure_probability * 100, 2), "%")
 
 # Determine risk level
