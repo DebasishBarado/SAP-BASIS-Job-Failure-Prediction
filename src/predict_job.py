@@ -14,6 +14,19 @@ def get_percentage_input(message):
         except ValueError:
             print("Please enter a valid number.")
 
+def get_non_negative_integer(message):
+    while True:
+        try:
+            value = int(input(message))
+
+            if value >= 0:
+                return value
+
+            print("Please enter 0 or a positive number.")
+
+        except ValueError:
+            print("Please enter a valid whole number.")
+
 def get_dependency_status():
     while True:
         status = input(
@@ -43,8 +56,8 @@ print("Model and preprocessor loaded successfully")
 # New SAP job data
 cpu_usage = get_percentage_input("Enter CPU usage (%): ")
 memory_usage = get_percentage_input("Enter memory usage (%): ")
-previous_failures = int(input("Enter previous failure count: "))
-start_delay = int(input("Enter start delay (minutes): "))
+previous_failures = get_non_negative_integer("Enter previous failure count: ")
+start_delay = get_non_negative_integer("Enter start delay (minutes): ")
 
 dependency_status = get_dependency_status()
 
